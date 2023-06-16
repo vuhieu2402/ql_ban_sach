@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+
+    <style>
+    	
+    	a:hover{
+    		text-decoration: none;
+    		color:red;
+    	}
+    	
+    	h4{
+            font-size:2rem;
+            font-weight: 1rem;
+            
+        }
+        
+        h5{
+        	font-size: 1.6rem;
+        	font-weight:0.8rem;
+        
+        }
+    	
+        .home-product-item__img{
+            padding-top:100%;
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position: center;
+        }
+
+        .home-product-item{
+            display: block;
+            text-decoration: none;
+            background-color: var(--white-color);
+            margin-top: 10px;
+            position: relative;
+            border-bottom-left-radius:2px ;
+            border-bottom-right-radius:2px ;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+            transition: transform linear 0.1s;
+            will-change: transform;
+        }
+        .home-product-item:hover{
+            transform: translateY(-1px);
+            box-shadow: 0 1px 20px 0 rgba(0,0,0,0.05);
+        }
+        
+        .category{
+            background-color: #ffffff;
+            border-radius: 2px;
+            
+            padding-top: 8px;
+            margin-bottom: 8px;
+        }
+        .category__heading{
+            font-size: 1.8rem;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-top: 0;
+        }
+        .category__heading-icon{
+            font-size:1.5rem;
+            margin-right: 4px;
+        }
+        .category-list{
+            padding-left: 0;
+            list-style: none;
+            margin-left: 10px;
+        }
+       
+        .category-item__link{
+            text-decoration:none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            padding:10px 16px;
+            display: block;
+            position: relative;
+            transition: right linear 0.1s;
+            right: 0;
+        }
+        .category-item__link:hover{
+            right: -4px;
+            color:#F05D41;
+        }
+        .app{
+             background-color:#f5f5f5;
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    
+    <div class="app">
+        <div class="header container-fluid bg-warning p-5">
+        	<div class="header text-black fs-1">
+                Book Strore
+            </div>
+            
+            <div class="con d-flex justify-content-end">
+                <a href="http://localhost:8080/dons" class="btn btn-primary">Đơn mua</a>
+            </div>
+        </div>
+
+
+        <div class="container">
+    		<div class="home-product">
+        		<div class="row">
+            		<div class="col-lg-2">
+                		<nav class="category mt-3">
+                    	<h3 class="category__heading">
+                        	<i class="category__heading-icon fa-solid fa-list"></i>
+                        	Danh mục
+                    	</h3>
+                    <ul class="category-list">
+                        <li class="category-item category-item--active">
+                            <a href="" class="category-item__link">Giày</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="" class="category-item__link">Áo thể thao</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="" class="category-item__link">Mỹ phẩm</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-10">
+                <div class="row">
+                    <div th:each="book: ${books}" class="col-lg-3">
+                        <a th:href="@{userbook/{id}(id=${book.id})}" class="home-product-item">
+                            <div class="home-product-item__img" th:style="'background-image: url(' + ${book.link} + ');'"></div>
+                            <h4 th:text="${book.title}" class="text-black"></h4>
+                            <h4 th:text="${book.author}" class="text-black"></h4>
+                            <div class="price d-flex">
+                                <h5 class="text-black">Giá:</h5>
+                                <h5 th:text="${book.price}"></h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+    </div>
+
+</body>
+</html>

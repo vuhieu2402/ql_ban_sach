@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        .file-upload {
+            
+            background-color: #ffffff;
+            width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .file-upload-btn {
+            align-items: center;
+            width: 50%;
+            margin: 0;
+            color: #fff;
+            background: #1FB264;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid #15824B;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .file-upload-btn:hover {
+            background: #1AA059;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-btn:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+
+        .file-upload-content {
+            display: none;
+            text-align: center;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-upload-wrap {
+            margin-top: 20px;
+            border: 4px dashed #1FB264;
+            position: relative;
+        }
+
+        .image-dropping,
+        .image-upload-wrap:hover {
+            background-color: #1FB264;
+            border: 4px dashed #ffffff;
+        }
+
+        .image-title-wrap {
+            padding: 0 15px 15px 15px;
+            color: #222;
+        }
+
+        .drag-text {
+        text-align: center;
+        }
+
+        .drag-text h3 {
+            font-weight: 100;
+            text-transform: uppercase;
+            color: #15824B;
+            padding: 60px 0;
+        }
+
+        .file-upload-image {
+            max-height: 200px;
+            max-width: 200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .remove-image {
+            width: 200px;
+            margin: 0;
+            color: #fff;
+            background: #cd4535;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            border-bottom: 4px solid #b02818;
+            transition: all .2s ease;
+            outline: none;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .remove-image:hover {
+            background: #c13b2a;
+            color: #ffffff;
+            transition: all .2s ease;
+            cursor: pointer;
+        }
+
+        .remove-image:active {
+            border: 0;
+            transition: all .2s ease;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <form th:object="${book}" th:action="@{save/{id}(id=${book.id})}" class="p-3  mw-100" th:method="${med} < 0 ? POST : PUT" enctype="multipart/form-data">
+           <div class="two d-flex">
+            <div class="info me-5 w-50">
+                <!--  -->
+                <div class="secon d-flex">
+                	<div class=" mb-3 mt-3 d-none">
+		                <label for="id" class="col-sm-2 form-label">ID</label>
+		                <div class="col-sm-10">
+		                    <input type="number"class="form-control" id="id" name="id" th:value="${book.id}" readonly required>
+		                </div>
+		                <div class="valid-feedback">Valid.</div>
+		      			<div class="invalid-feedback">Please fill out this field.</div>
+		            </div>
+                    <div class="con me-5">
+                        <div class="la d-flex">
+                            <label for="title" class="me-5">Tiêu đề</label><br>
+                            <i class="glyphicon glyphicon-cloud" ></i>
+                        </div>
+                        <input id="title" name="title" type="text" th:value="${book.title}"><br>
+                    </div>
+                    
+                    <div class="con">
+                        <div class="la d-flex">
+                            <label class="me-5">Tác giả</label><br>
+                            <i class="glyphicon glyphicon-cloud" ></i>
+                        </div>
+                        <input name="author" type="text" th:value="${book.author}"><br>
+                    </div>
+                </div>
+
+                <!--Mo ta  -->
+                <div class="mota mt-5 ">
+                    <label for="ent">Mô tả về sách</label><br>
+                    <input type="text" name="" id="ent" th:value="${book.ent}" style="height: 120px;width: 100%">
+                </div>
+
+
+                <!--  -->
+                <div class="secon d-flex mt-5">
+                    <div class="con me-5">
+                        <div class="la d-flex">
+                            <label for="rdate" class="me-5">Ngày phát hành</label><br>
+                            <i class="glyphicon glyphicon-cloud" ></i>
+                        </div>
+                        <input id="rdate" name="rdate" type="date" th:value="${book.rdate}"><br>
+                    </div>
+                    
+                    <div class="con">
+            
+                            <label class="me-5">Số trang</label><br>
+                        
+                            <input name="page" type="text" th:value="${book.page}"><br>
+                    </div>
+                </div>
+
+                <!--category  -->
+                  <div class="cate mt-5">
+                    <label for="sel1" class="form-lable me-5">Thể loại</label><br>
+                    <select class="form-select" id="sel1" name="sellist1">
+                        <option >Tiểu thuyết</option>
+                        <option >Truyện ngắn</option>
+                        <option >Khoa học</option>
+                        <option >Trinh thám</option>
+                      </select>
+                </div>
+
+
+            </div>
+
+            <!-- upload -->
+            <div class="upl w-50" >
+                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload</button>
+
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+    <div class="drag-text">
+      <h3>Img</h3>
+    </div>
+  </div>
+  <div class="file-upload-content">
+    <img class="file-upload-image" src="#" alt="your image" />
+    <div class="image-title-wrap">
+      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+    </div>
+  </div>
+</div>
+        <script>
+            function readURL(input) {
+  if (input.files && input.files[0]) {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('.image-upload-wrap').hide();
+
+      $('.file-upload-image').attr('src', e.target.result);
+      $('.file-upload-content').show();
+
+      $('.image-title').html(input.files[0].name);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+
+  } else {
+    removeUpload();
+  }
+}
+
+function removeUpload() {
+  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+  $('.file-upload-content').hide();
+  $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function () {
+    $('.image-upload-wrap').addClass('image-dropping');
+  });
+  $('.image-upload-wrap').bind('dragleave', function () {
+    $('.image-upload-wrap').removeClass('image-dropping');
+});
+        </script>
+            </div>
+           </div>
+
+            <!-- footer -->
+            
+            <div class="footer">
+                <div class="line border border-1 mt-5 bg-dark" style="width: 100%; height:3px"></div>
+                <div class="butt d-flex justify-content-end me-5">
+                    <input type="submit" class="btn btn-primary" value="Save Book">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
